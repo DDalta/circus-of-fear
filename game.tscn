@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk8moxmgmkwjg"]
+
+[ext_resource type="Texture2D" uid="uid://wo2hudea5bef" path="res://assets/weapons/pin_small.png" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://bnn30f0sx2bfr" path="res://player/player.tscn" id="2_e2o6t"]
+
+[node name="Game" type="Node2D"]
+
+[node name="PinSmall" type="Sprite2D" parent="."]
+position = Vector2(113, 66)
+texture = ExtResource("1_80nbo")
+
+[node name="Player" parent="." instance=ExtResource("2_e2o6t")]
