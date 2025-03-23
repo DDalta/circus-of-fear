@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxoc6u0y3qan"]
+
+[ext_resource type="Script" uid="uid://crsubmxvbbkim" path="res://weapons/cream_pie_weapon.gd" id="1_7c1ta"]
+[ext_resource type="Texture2D" uid="uid://bk0pfcf1antuw" path="res://assets/weapons/cream_pie.png" id="1_bpa7r"]
+
+[node name="CreamPieWeapon" type="Node2D"]
+script = ExtResource("1_7c1ta")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_bpa7r")
