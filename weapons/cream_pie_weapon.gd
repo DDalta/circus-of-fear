@@ -6,11 +6,9 @@ const gravity: float = 9.8
 var time: float = 0.0
 var initial_speed: float
 var throw_angle_degrees: float
-
 var initial_position: Vector2
 var throw_direction: Vector2
-
-var z_axis = 0.0
+var y_axis: float = 0.0
 var is_throw: bool = false
 
 func _process(delta: float) -> void:
@@ -20,17 +18,25 @@ func _process(delta: float) -> void:
 		throw_projectile(global_position, Vector2(1, 0), 100, 75)
 		
 	if is_throw:
+		var prev_y_axis: float = y_axis
 		# get y position at time t 
-		z_axis = initial_speed * sin(deg_to_rad(throw_angle_degrees)) * time - 0.5 * gravity * pow(time, 2)
+		y_axis = initial_speed * sin(deg_to_rad(throw_angle_degrees)) * time - 0.5 * gravity * pow(time, 2)
 		
-		# if hasn't touched ground yet
-		if z_axis > 0:
+		# check when pie just landed on ground
+		if y_axis <= 0 and prev_y_axis > 0:
+			is_throw = false
+			#TODO: explode pie when it lands
+			print("explode!!!")
+		
+		# if hasn't touched ground yet, update position
+		if y_axis > 0:
 			# get x position at time t
 			var x_axis: float = initial_speed * cos(deg_to_rad(throw_angle_degrees)) * time
 			# update x-axis
-			global_position = initial_position + throw_direction * x_axis
+			global_position = initial_position + (throw_direction * x_axis)
 			# update y-axis
-			sprite_2d.position.y = -z_axis
+			sprite_2d.position.y = -y_axis
+
 
 # setup projectile before throwing
 func throw_projectile(initial_pos: Vector2, direction: Vector2, distance: float, angle_degree: float):

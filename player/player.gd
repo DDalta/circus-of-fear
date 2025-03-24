@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var health: int = 10
+@export var health: int = 25
 @export var speed: int = 100
 @export var damage: int # might not need since weapons will have their own damage attribute 
 @export var defense: int
@@ -12,3 +12,9 @@ func _process(delta: float) -> void:
 	
 	velocity = Vector2(horizontal, vertical).normalized() * speed
 	move_and_slide()
+
+func hurt(damage_amount: int) -> void:
+	health -= damage_amount
+	if health <= 0:
+		# dead as hell
+		pass

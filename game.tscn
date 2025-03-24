@@ -1,15 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://dk8moxmgmkwjg"]
+[gd_scene load_steps=7 format=3 uid="uid://dk8moxmgmkwjg"]
 
-[ext_resource type="Texture2D" uid="uid://wo2hudea5bef" path="res://assets/weapons/pin_small.png" id="1_80nbo"]
+[ext_resource type="Texture2D" uid="uid://bn62v6ceaubll" path="res://assets/levels/sand_tile.png" id="1_7jktm"]
 [ext_resource type="PackedScene" uid="uid://bnn30f0sx2bfr" path="res://player/player.tscn" id="2_e2o6t"]
 [ext_resource type="Texture2D" uid="uid://b31vvc8avp0x0" path="res://assets/weapons/cannon.png" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://bxoc6u0y3qan" path="res://weapons/cream_pie_weapon.tscn" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://djiaemd787o6i" path="res://weapons/bowling_pin_weapon.tscn" id="5_7jktm"]
+[ext_resource type="PackedScene" uid="uid://ddlxaristfrmj" path="res://enemies/enemy.tscn" id="6_ryrav"]
 
 [node name="Game" type="Node2D"]
 
-[node name="PinSmall" type="Sprite2D" parent="."]
-position = Vector2(113, 66)
-texture = ExtResource("1_80nbo")
+[node name="TempBackground" type="TextureRect" parent="."]
+offset_left = -919.0
+offset_top = -516.0
+offset_right = 959.0
+offset_bottom = 556.0
+texture = ExtResource("1_7jktm")
+stretch_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("2_e2o6t")]
 position = Vector2(-82, -29)
@@ -19,3 +25,9 @@ position = Vector2(112, -72)
 texture = ExtResource("3_feb5d")
 
 [node name="CreamPieWeapon" parent="." instance=ExtResource("4_fc0e3")]
+
+[node name="BowlingPinWeapon" parent="." instance=ExtResource("5_7jktm")]
+position = Vector2(1, -107)
+
+[node name="EnemyTest" parent="." instance=ExtResource("6_ryrav")]
+position = Vector2(-119, -118)
