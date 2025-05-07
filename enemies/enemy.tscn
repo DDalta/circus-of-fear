@@ -14,3 +14,10 @@ texture = ExtResource("2_7frlh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_orwns")
+
+[node name="DistanceLabel" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -28.0
+offset_right = 21.0
+offset_bottom = -5.0
+text = "bruh"

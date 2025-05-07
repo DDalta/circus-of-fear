@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b31vvc8avp0x0" path="res://assets/weapons/cannon.png" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://bxoc6u0y3qan" path="res://weapons/cream_pie_weapon.tscn" id="4_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://djiaemd787o6i" path="res://weapons/bowling_pin_weapon.tscn" id="5_7jktm"]
-[ext_resource type="PackedScene" uid="uid://ddlxaristfrmj" path="res://enemies/enemy.tscn" id="6_ryrav"]
+[ext_resource type="PackedScene" uid="uid://yiluylwoe0mh" path="res://player/enemy_manager.tscn" id="7_eow3j"]
 
 [node name="Game" type="Node2D"]
 
@@ -29,5 +29,4 @@ texture = ExtResource("3_feb5d")
 [node name="BowlingPinWeapon" parent="." instance=ExtResource("5_7jktm")]
 position = Vector2(1, -107)
 
-[node name="EnemyTest" parent="." instance=ExtResource("6_ryrav")]
-position = Vector2(-119, -118)
+[node name="EnemyManager" parent="." instance=ExtResource("7_eow3j")]

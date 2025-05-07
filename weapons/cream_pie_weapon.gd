@@ -37,7 +37,6 @@ func _process(delta: float) -> void:
 			# update y-axis
 			sprite_2d.position.y = -y_axis
 
-
 # setup projectile before throwing
 func throw_projectile(initial_pos: Vector2, direction: Vector2, distance: float, angle_degree: float):
 	initial_position = initial_pos
