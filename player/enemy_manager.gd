@@ -5,6 +5,7 @@ extends Node
 @export var enemies: Array[PackedScene]
 
 @onready var spawn_timer: Timer = $Timer
+@onready var enemy_container: Node = $EnemyContainer
 
 var player : CharacterBody2D
 
@@ -22,8 +23,9 @@ func get_random_spawn() -> Vector2:
 	return Vector2(x, y)
 
 func on_spawn_timer_timeout():
+	if enemy_container.get_child_count() >= max_enemies_count: return
 	var enemy_scene = enemies.pick_random()
 	var enemy = enemy_scene.instantiate()
-	add_child(enemy)
+	enemy_container.add_child(enemy)
 	enemy.global_position = get_random_spawn()
 	spawn_timer.start(1.0)
