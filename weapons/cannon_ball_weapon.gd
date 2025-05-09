@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var hurt_box: Area2D = $HurtBox
 
-var direction := 1
+var direction := Vector2.RIGHT
 var speed := 100
 var damage := 1
 var attacking := false
@@ -15,7 +15,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if attacking:
-		global_position[0] += ((direction * speed) * delta)
+		global_position += ((direction * speed) * delta)
 
 func enable(pos, dir) -> void:
 	visible = true

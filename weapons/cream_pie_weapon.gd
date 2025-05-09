@@ -1,51 +1,59 @@
 extends Node2D
 
-@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var cream_pie_container: Node2D = $CreamPieContainer
+@onready var cooldown_timer: Timer = $CooldownTimer
 
-const gravity: float = 9.8
-var time: float = 0.0
-var initial_speed: float
-var throw_angle_degrees: float
-var initial_position: Vector2
-var throw_direction: Vector2
-var y_axis: float = 0.0
-var is_throw: bool = false
+var cream_pie_scene = preload("res://weapons/cream_pie_weapon_single.tscn")
+var cream_pie_explosion_scene = preload("res://weapons/cream_pie_explosion.tscn")
 
-func _process(delta: float) -> void:
-	time += delta * 10
-	
-	if Input.is_action_just_pressed("ui_accept"):
-		throw_projectile(global_position, Vector2(1, 0), 100, 75)
-		
-	if is_throw:
-		var prev_y_axis: float = y_axis
-		# get y position at time t 
-		y_axis = initial_speed * sin(deg_to_rad(throw_angle_degrees)) * time - 0.5 * gravity * pow(time, 2)
-		
-		# check when pie just landed on ground
-		if y_axis <= 0 and prev_y_axis > 0:
-			is_throw = false
-			#TODO: explode pie when it lands
-			print("explode!!!")
-		
-		# if hasn't touched ground yet, update position
-		if y_axis > 0:
-			# get x position at time t
-			var x_axis: float = initial_speed * cos(deg_to_rad(throw_angle_degrees)) * time
-			# update x-axis
-			global_position = initial_position + (throw_direction * x_axis)
-			# update y-axis
-			sprite_2d.position.y = -y_axis
+var attacking := false
 
-# setup projectile before throwing
-func throw_projectile(initial_pos: Vector2, direction: Vector2, distance: float, angle_degree: float):
-	initial_position = initial_pos
-	throw_direction = direction.normalized()
-	throw_angle_degrees = angle_degree
+@export var explosion_radius := 15.0
+@export var alive_time := 5.0
+@export var cooldown_time := 5.0
+
+func _ready() -> void:
+	cooldown_timer.connect("timeout", cooldown_timer_timeout)
+	visible = false
+	add_pie()
+	add_pie()
+	add_pie()
+	cooldown_timer.start(cooldown_time)
+
+func add_pie() -> void:
+	var new_pie = cream_pie_scene.instantiate()
+	cream_pie_container.add_child(new_pie)
+	new_pie.connect("explode", spawn_explosion)
+	new_pie.visible = false
+	new_pie.set_process(false)
+
+func start_attack() -> void:
+	visible = true
+	attacking = true
+	fire_pies()
 	
-	# get initial speed from the desired distance and desired angle
-	initial_speed = pow(distance * gravity / sin(2 * deg_to_rad(angle_degree)), 0.5)
-	
-	global_position = initial_position
-	time = 0.0
-	is_throw = true
+func end_attack() -> void:
+	visible = false
+	attacking = false
+
+func fire_pies() -> void:
+	var cream_pies = cream_pie_container.get_children()
+	var delay_timer_offset := 0.1
+	for i in range(len(cream_pies)):
+		cream_pies[i].set_process(true)
+		cream_pies[i].visible = true
+		cream_pies[i].delay_timer.start(delay_timer_offset)
+		delay_timer_offset += 0.18
+
+func cooldown_timer_timeout() -> void:
+	if attacking:
+		end_attack()
+		cooldown_timer.start(cooldown_time)
+	else:
+		start_attack()
+		cooldown_timer.start(alive_time)
+
+func spawn_explosion(pos: Vector2) -> void:
+	var new_explosion = cream_pie_explosion_scene.instantiate()
+	add_child(new_explosion)
+	new_explosion.fixed_position = pos

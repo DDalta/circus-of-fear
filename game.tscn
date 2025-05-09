@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://dk8moxmgmkwjg"]
+[gd_scene load_steps=5 format=3 uid="uid://dk8moxmgmkwjg"]
 
 [ext_resource type="Texture2D" uid="uid://bn62v6ceaubll" path="res://assets/levels/sand_tile.png" id="1_7jktm"]
+[ext_resource type="PackedScene" uid="uid://bftvbea4kgbal" path="res://ui/game_hud.tscn" id="1_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://bnn30f0sx2bfr" path="res://player/player.tscn" id="2_e2o6t"]
-[ext_resource type="Texture2D" uid="uid://b31vvc8avp0x0" path="res://assets/weapons/cannon.png" id="3_feb5d"]
-[ext_resource type="PackedScene" uid="uid://bxoc6u0y3qan" path="res://weapons/cream_pie_weapon.tscn" id="4_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://yiluylwoe0mh" path="res://player/enemy_manager.tscn" id="7_eow3j"]
 
 [node name="Game" type="Node2D"]
+
+[node name="GameHUD" parent="." instance=ExtResource("1_fc0e3")]
 
 [node name="TempBackground" type="TextureRect" parent="."]
 offset_left = -919.0
@@ -18,12 +19,6 @@ stretch_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("2_e2o6t")]
 position = Vector2(-82, -29)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(112, -72)
-texture = ExtResource("3_feb5d")
-
-[node name="CreamPieWeapon" parent="." instance=ExtResource("4_fc0e3")]
 
 [node name="EnemyManager" parent="." instance=ExtResource("7_eow3j")]
 max_enemies_count = 0

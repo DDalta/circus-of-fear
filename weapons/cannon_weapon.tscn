@@ -15,3 +15,6 @@ texture = ExtResource("2_ralyg")
 position = Vector2(12, -1)
 
 [node name="CoolDownTimer" type="Timer" parent="."]
+
+[node name="FireCannonTimer" type="Timer" parent="."]
+one_shot = true

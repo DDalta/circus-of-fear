@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bnn30f0sx2bfr"]
+[gd_scene load_steps=4 format=3 uid="uid://bnn30f0sx2bfr"]
 
 [ext_resource type="Script" uid="uid://kxqko2d6lfl" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="Texture2D" uid="uid://cv835vy5ggy7d" path="res://icon.svg" id="2_rkbax"]
-[ext_resource type="PackedScene" uid="uid://3csbx3b55vno" path="res://weapons/cannon_weapon.tscn" id="3_g1dw6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rkbax"]
 radius = 14.0
@@ -21,5 +20,3 @@ shape = SubResource("CircleShape2D_rkbax")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Weapons" type="Node2D" parent="."]
-
-[node name="CannonWeapon" parent="Weapons" instance=ExtResource("3_g1dw6")]
