@@ -1,18 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://djiaemd787o6i"]
+[gd_scene load_steps=2 format=3 uid="uid://djiaemd787o6i"]
 
 [ext_resource type="Script" uid="uid://br8sj54r31cgd" path="res://weapons/bowling_pin_weapon.gd" id="1_4h56u"]
-[ext_resource type="Texture2D" uid="uid://wo2hudea5bef" path="res://assets/weapons/pin_small.png" id="1_swcoq"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_4h56u"]
-radius = 11.0
 
 [node name="BowlingPinWeapon" type="Node2D"]
 script = ExtResource("1_4h56u")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_swcoq")
+[node name="Pins" type="Node2D" parent="."]
 
-[node name="HurtBox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-shape = SubResource("CircleShape2D_4h56u")
+[node name="CoolDownTimer" type="Timer" parent="."]

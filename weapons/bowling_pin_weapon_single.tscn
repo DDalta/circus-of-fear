@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgqv7qxlbeh1h"]
+
+[ext_resource type="Script" uid="uid://okd3fk2td8qv" path="res://weapons/bowling_pin_weapon_single.gd" id="1_0jiyi"]
+[ext_resource type="Texture2D" uid="uid://wo2hudea5bef" path="res://assets/weapons/pin_small.png" id="2_e2qnn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e2qnn"]
+radius = 11.0
+
+[node name="BowlingPinWeaponSingle" type="Node2D"]
+script = ExtResource("1_0jiyi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_e2qnn")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_e2qnn")

@@ -1,3 +1,17 @@
-[gd_scene format=3 uid="uid://3csbx3b55vno"]
+[gd_scene load_steps=3 format=3 uid="uid://3csbx3b55vno"]
+
+[ext_resource type="Script" uid="uid://dsxsvlcr1e0bx" path="res://weapons/cannon_weapon.gd" id="1_u3eu4"]
+[ext_resource type="Texture2D" uid="uid://b31vvc8avp0x0" path="res://assets/weapons/cannon.png" id="2_ralyg"]
 
 [node name="CannonWeapon" type="Node2D"]
+script = ExtResource("1_u3eu4")
+
+[node name="CannonSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_ralyg")
+
+[node name="CannonBallContainer" type="Node2D" parent="."]
+
+[node name="CannonBallMarker" type="Marker2D" parent="."]
+position = Vector2(12, -1)
+
+[node name="CoolDownTimer" type="Timer" parent="."]

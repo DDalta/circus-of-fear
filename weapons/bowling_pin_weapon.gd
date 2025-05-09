@@ -1,23 +1,67 @@
 extends Node2D
 
-# deals damage to ememies
-@onready var hurt_box: Area2D = $HurtBox
+@onready var pins: Node2D = $Pins
+@onready var cool_down_timer: Timer = $CoolDownTimer
 
+var pin_scene = preload("res://weapons/bowling_pin_weapon_single.tscn")
 var time: float = 0.0
 var radius: float = 50.0
-var speed: float = 2.0
 var rotation_speed_deg: float = 5.0
+var attacking: bool = false
 
-@export var damage := 1
+@export var speed := 2.0
+@export var cooldown_time := 8.0
+@export var alive_time := 5.0
 
 func _ready() -> void:
-	hurt_box.connect("area_entered", deal_damage)
+	add_pin()
+	cool_down_timer.connect("timeout", cooldown_timer_timeout)
+	cool_down_timer.start(cooldown_time)
 
 func _process(delta: float) -> void:
 	# delta is the amount of time taken to render the previous frame
-	time += delta
-	position = Vector2(sin(time * speed) * radius, cos(time * speed) * radius)
-	rotate(deg_to_rad(rotation_speed_deg))
+	if attacking:
+		var pin_weapons = pins.get_children()
+		time += delta
+		for pin in range(len(pin_weapons)):
+			var angle = pin * ((2 * PI) / len(pin_weapons))
+			pin_weapons[pin].position = Vector2(sin(angle + time * speed) * radius, cos(angle + time * speed) * radius)
+			pin_weapons[pin].rotate(deg_to_rad(rotation_speed_deg))
 
-func deal_damage(body: Area2D) -> void:
-	pass
+func add_pin() -> void:
+	end_attack()
+	var new_pin = pin_scene.instantiate()
+	pins.add_child(new_pin)
+	new_pin.position = Vector2.ZERO
+	new_pin.disable()
+	new_pin.set_process(false)
+
+func cooldown_timer_timeout() -> void:
+	if attacking:
+		end_attack()
+		cool_down_timer.start(alive_time)
+	else:
+		start_attack()
+		cool_down_timer.start(cooldown_time)
+
+func start_attack():
+	attacking = true
+	# set initial position for each bowling pin
+	var pin_weapons = pins.get_children()
+	for pin in range(len(pin_weapons)):
+		var angle = pin * ((2 * PI) / len(pin_weapons))
+		pin_weapons[pin].position = Vector2(sin(angle) * radius, cos(angle) * radius)
+		pin_weapons[pin].enable()
+		pin_weapons[pin].set_process(true)
+
+func end_attack():
+	attacking = false
+	# disable all bowling pins
+	var pin_weapons = pins.get_children()
+	for pin in range(len(pin_weapons)):
+		pin_weapons[pin].disable()
+		pin_weapons[pin].position = Vector2.ZERO
+		pin_weapons[pin].set_process(false)
+
+func get_count() -> int:
+	return pins.get_child_count()

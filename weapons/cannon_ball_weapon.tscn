@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bd8mwhb50hv6t"]
+
+[ext_resource type="Script" uid="uid://c4ux0ymt5qh03" path="res://weapons/cannon_ball_weapon.gd" id="1_6fc8a"]
+[ext_resource type="Texture2D" uid="uid://exrd3xnr4xiq" path="res://assets/weapons/cannon_ball.png" id="1_a3okd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6fc8a"]
+radius = 9.0
+
+[node name="CannonBallWeapon" type="Node2D"]
+script = ExtResource("1_6fc8a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_a3okd")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_6fc8a")
