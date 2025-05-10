@@ -1,6 +1,30 @@
-[gd_scene format=3 uid="uid://bftvbea4kgbal"]
+[gd_scene load_steps=9 format=3 uid="uid://bftvbea4kgbal"]
+
+[ext_resource type="Texture2D" uid="uid://dianerqyxndlu" path="res://assets/ui/progress_bar_background.png" id="1_io01e"]
+[ext_resource type="Script" uid="uid://bi22k55xvyy2s" path="res://ui/game_hud.gd" id="1_trchv"]
+[ext_resource type="Texture2D" uid="uid://bmb5io1nex7yp" path="res://assets/ui/progress_bar_fill.png" id="2_5bps4"]
+[ext_resource type="Shader" uid="uid://blblic0d2e50b" path="res://shaders/vignette.gdshader" id="2_qnhj8"]
+[ext_resource type="PackedScene" uid="uid://muy1g2d00gxb" path="res://ui/buy_menu_ui.tscn" id="3_5bps4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_agb43"]
+shader = ExtResource("2_qnhj8")
+shader_parameter/outerRadius = 0.748
+shader_parameter/MainAlpha = 0.439
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_trchv"]
+texture = ExtResource("1_io01e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qnhj8"]
+texture = ExtResource("2_5bps4")
 
 [node name="GameHUD" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_trchv")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_agb43")
+offset_right = 480.0
+offset_bottom = 270.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15
@@ -8,13 +32,36 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 0
 
-[node name="XPBar" type="Control" parent="VBoxContainer"]
+[node name="XPBar" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/XPBar"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Experience: "
+[node name="XPProgressBar" type="ProgressBar" parent="VBoxContainer/XPBar"]
+custom_minimum_size = Vector2(0, 23.155)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxTexture_trchv")
+theme_override_styles/fill = SubResource("StyleBoxTexture_qnhj8")
+step = 1.0
+show_percentage = false
+
+[node name="LevelLabel" type="Label" parent="VBoxContainer/XPBar"]
+layout_mode = 2
+text = "LV. 0"
+horizontal_alignment = 2
+
+[node name="TimeLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "0:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuyMenuUI" parent="." instance=ExtResource("3_5bps4")]
+visible = false
+offset_left = 181.0
+offset_top = 24.0
+offset_right = -175.0
+offset_bottom = -38.0
+scale = Vector2(1, 1e-05)

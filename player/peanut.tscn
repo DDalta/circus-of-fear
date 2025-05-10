@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bs2wl5oleut1g"]
+
+[ext_resource type="Script" uid="uid://y5re2h8dhgv3" path="res://player/peanut.gd" id="1_mdndm"]
+[ext_resource type="Texture2D" uid="uid://bn8bys4vhv2ov" path="res://assets/peanut.png" id="1_u2apa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mdndm"]
+radius = 14.0
+
+[node name="Peanut" type="Area2D"]
+collision_layer = 32
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_mdndm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.833333, 0.869565)
+texture = ExtResource("1_u2apa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_mdndm")

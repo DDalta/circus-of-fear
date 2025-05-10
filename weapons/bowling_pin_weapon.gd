@@ -10,11 +10,13 @@ var rotation_speed_deg: float = 5.0
 var attacking: bool = false
 
 @export var speed := 2.0
-@export var cooldown_time := 8.0
-@export var alive_time := 5.0
+@export var cooldown_time := 5.0
+@export var alive_time := 5.5
+@export var damage := 1
 
 func _ready() -> void:
 	add_pin()
+	Globals.connect("upgrade", upgrade)
 	cool_down_timer.connect("timeout", cooldown_timer_timeout)
 	cool_down_timer.start(cooldown_time)
 
@@ -52,6 +54,7 @@ func start_attack():
 		var angle = pin * ((2 * PI) / len(pin_weapons))
 		pin_weapons[pin].position = Vector2(sin(angle) * radius, cos(angle) * radius)
 		pin_weapons[pin].enable()
+		pin_weapons[pin].damage = damage
 		pin_weapons[pin].set_process(true)
 
 func end_attack():
@@ -65,3 +68,28 @@ func end_attack():
 
 func get_count() -> int:
 	return pins.get_child_count()
+
+func upgrade(upgrade) -> void:
+	if not upgrade["upgrade"] == "bowling_pin": return
+	
+	end_attack()
+	cool_down_timer.start(cooldown_time)
+	match upgrade["level"]:
+		2:
+			add_pin()
+			alive_time += 1.5
+			damage += 1
+		3:
+			add_pin()
+			cooldown_time -= 1.5
+			damage += 1
+		4:
+			speed += 4
+			alive_time += 1.5
+			cooldown_time -= 1.5
+			damage += 1
+		5:
+			add_pin()
+			speed += 2
+			damage += 1
+	Globals.update_level("bowling_pin", upgrade["level"])

@@ -11,12 +11,12 @@ var attacking := false
 @export var explosion_radius := 15.0
 @export var alive_time := 5.0
 @export var cooldown_time := 5.0
+@export var damage := 5
 
 func _ready() -> void:
 	cooldown_timer.connect("timeout", cooldown_timer_timeout)
+	Globals.connect("upgrade", upgrade)
 	visible = false
-	add_pie()
-	add_pie()
 	add_pie()
 	cooldown_timer.start(cooldown_time)
 
@@ -55,5 +55,27 @@ func cooldown_timer_timeout() -> void:
 
 func spawn_explosion(pos: Vector2) -> void:
 	var new_explosion = cream_pie_explosion_scene.instantiate()
+	new_explosion.damage = damage
 	add_child(new_explosion)
 	new_explosion.fixed_position = pos
+
+func upgrade(upgrade) -> void:
+	if not upgrade["upgrade"] == "cream_pie": return
+	
+	end_attack()
+	cooldown_timer.start(cooldown_time)
+	match upgrade["level"]:
+		2:
+			add_pie()
+			damage += 2
+		3:
+			add_pie()
+			cooldown_time -= 1.5
+			damage += 2
+		4:
+			cooldown_time -= 1.5
+			damage += 2
+		5:
+			add_pie()
+			damage += 2
+	Globals.update_level("cream_pie", upgrade["level"])

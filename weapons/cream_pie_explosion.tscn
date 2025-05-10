@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbgche421aud2"]
+[gd_scene load_steps=6 format=3 uid="uid://cbgche421aud2"]
 
 [ext_resource type="Script" uid="uid://0q0ppartfrib" path="res://weapons/cream_pie_explosion.gd" id="1_dha3j"]
+[ext_resource type="Texture2D" uid="uid://dkn4ydott8kdg" path="res://assets/weapons/cream_pie_explosion.png" id="2_7h4de"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ay7yg"]
 radius = 35.0
@@ -31,6 +32,8 @@ _data = {
 script = ExtResource("1_dha3j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2.33333, 2.33333)
+texture = ExtResource("2_7h4de")
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 4

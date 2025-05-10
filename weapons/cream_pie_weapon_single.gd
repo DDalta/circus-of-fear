@@ -32,6 +32,7 @@ func _process(delta: float) -> void:
 		if y_axis <= 0 and prev_y_axis > 0:
 			is_throw = false
 			#TODO: explode pie when it lands
+			visible = false
 			explode.emit(global_position)
 			position = Vector2.ZERO
 			set_process(false)

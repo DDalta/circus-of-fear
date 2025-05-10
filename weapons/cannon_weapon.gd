@@ -18,6 +18,7 @@ var fixed_pos := Vector2.ZERO
 func _ready() -> void:
 	cool_down_timer.connect("timeout", cool_down_timer_timeout)
 	fire_cannon_timer.connect("timeout", fire_cannon_timer_timeout)
+	Globals.connect("upgrade", upgrade)
 	end_attack()
 	add_cannon_ball()
 	cool_down_timer.start(cooldown_time)
@@ -58,6 +59,8 @@ func fire_cannon() -> void:
 	for i in range(len(cannon_balls)):
 		var angle = i * ((PI / 4) / len(cannon_balls))
 		cannon_balls[i].enable(cannon_ball_marker.position, Vector2(direction, 0).rotated(angle))
+		cannon_balls[i].damage = damage
+		cannon_balls[i].speed = speed
 		cannon_balls[i].set_process(true)
 
 func cool_down_timer_timeout() -> void:
@@ -70,3 +73,28 @@ func cool_down_timer_timeout() -> void:
 
 func fire_cannon_timer_timeout() -> void:
 	fire_cannon()
+
+func upgrade(upgrade) -> void:
+	if not upgrade["upgrade"] == "cannon": return
+	
+	end_attack()
+	cool_down_timer.start(cooldown_time)
+	match upgrade["level"]:
+		2:
+			add_cannon_ball()
+			alive_time += 1.5
+			damage += 1
+		3:
+			add_cannon_ball()
+			cooldown_time -= 1.5
+			damage += 1
+		4:
+			speed += 5
+			alive_time += 1.5
+			cooldown_time -= 1.5
+			damage += 1
+		5:
+			add_cannon_ball()
+			speed += 5
+			damage += 1
+	Globals.update_level("cannon", upgrade["level"])

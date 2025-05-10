@@ -1,19 +1,43 @@
-[gd_scene load_steps=5 format=3 uid="uid://dk8moxmgmkwjg"]
+[gd_scene load_steps=10 format=3 uid="uid://dk8moxmgmkwjg"]
 
 [ext_resource type="Texture2D" uid="uid://bn62v6ceaubll" path="res://assets/levels/sand_tile.png" id="1_7jktm"]
 [ext_resource type="PackedScene" uid="uid://bftvbea4kgbal" path="res://ui/game_hud.tscn" id="1_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://bnn30f0sx2bfr" path="res://player/player.tscn" id="2_e2o6t"]
+[ext_resource type="Texture2D" uid="uid://dianerqyxndlu" path="res://assets/ui/progress_bar_background.png" id="2_j5wjh"]
+[ext_resource type="Texture2D" uid="uid://yl1usinw5431" path="res://assets/levels/background.png" id="3_vef74"]
+[ext_resource type="PackedScene" uid="uid://bs2wl5oleut1g" path="res://player/peanut.tscn" id="4_7jktm"]
 [ext_resource type="PackedScene" uid="uid://yiluylwoe0mh" path="res://player/enemy_manager.tscn" id="7_eow3j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hve3p"]
+size = Vector2(2314, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mfdv2"]
+size = Vector2(98, 344)
 
 [node name="Game" type="Node2D"]
 
 [node name="GameHUD" parent="." instance=ExtResource("1_fc0e3")]
 
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = -3356.0
+offset_top = -1453.0
+offset_right = 3456.0
+offset_bottom = 1493.0
+texture = ExtResource("2_j5wjh")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -1719.0
+offset_top = -153.0
+offset_right = 1761.0
+offset_bottom = -89.0
+texture = ExtResource("3_vef74")
+stretch_mode = 1
+
 [node name="TempBackground" type="TextureRect" parent="."]
-offset_left = -919.0
-offset_top = -516.0
-offset_right = 959.0
-offset_bottom = 556.0
+offset_left = -1720.0
+offset_top = -89.0
+offset_right = 1760.0
+offset_bottom = 129.0
 texture = ExtResource("1_7jktm")
 stretch_mode = 1
 
@@ -21,4 +45,58 @@ stretch_mode = 1
 position = Vector2(-82, -29)
 
 [node name="EnemyManager" parent="." instance=ExtResource("7_eow3j")]
-max_enemies_count = 0
+
+[node name="Peanut" parent="." instance=ExtResource("4_7jktm")]
+
+[node name="Peanut2" parent="." instance=ExtResource("4_7jktm")]
+position = Vector2(-291, -18)
+
+[node name="Peanut3" parent="." instance=ExtResource("4_7jktm")]
+position = Vector2(-323, -30)
+
+[node name="Peanut4" parent="." instance=ExtResource("4_7jktm")]
+position = Vector2(-292, -52)
+
+[node name="Peanut5" parent="." instance=ExtResource("4_7jktm")]
+position = Vector2(-242, -44)
+
+[node name="Peanut6" parent="." instance=ExtResource("4_7jktm")]
+position = Vector2(88, -36)
+
+[node name="Peanut7" parent="." instance=ExtResource("4_7jktm")]
+position = Vector2(173, -30)
+
+[node name="Peanut8" parent="." instance=ExtResource("4_7jktm")]
+position = Vector2(-60, 52)
+rotation = -0.209339
+
+[node name="Peanut9" parent="." instance=ExtResource("4_7jktm")]
+position = Vector2(-110, 46)
+rotation = -0.209339
+
+[node name="Peanut10" parent="." instance=ExtResource("4_7jktm")]
+position = Vector2(-162, 40)
+rotation = -0.209339
+
+[node name="Peanut11" parent="." instance=ExtResource("4_7jktm")]
+position = Vector2(-195, 48)
+rotation = -1.54493
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(21, -121)
+shape = SubResource("RectangleShape2D_hve3p")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(17, 161)
+shape = SubResource("RectangleShape2D_hve3p")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1092, 17)
+shape = SubResource("RectangleShape2D_mfdv2")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1130, 15)
+shape = SubResource("RectangleShape2D_mfdv2")

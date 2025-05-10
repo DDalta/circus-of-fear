@@ -1,40 +1,47 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddlxaristfrmj"]
+[gd_scene load_steps=6 format=3 uid="uid://ddlxaristfrmj"]
 
 [ext_resource type="Script" uid="uid://dvvnklku5ts1h" path="res://enemies/enemy.gd" id="1_fw1ev"]
-[ext_resource type="Texture2D" uid="uid://b7kjg7pscxbj8" path="res://assets/weapons/ball.png" id="2_7frlh"]
+[ext_resource type="Texture2D" uid="uid://d1s1wj7mwmgva" path="res://assets/enemies/evilClownDraft_CoF.png" id="2_7frlh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_orwns"]
-radius = 7.07107
+radius = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7frlh"]
+radius = 17.1172
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a6vjd"]
+radius = 13.0
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 16
-collision_mask = 16
+collision_mask = 18
 script = ExtResource("1_fw1ev")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.4375, 0.4375)
 texture = ExtResource("2_7frlh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_orwns")
-
-[node name="DebugLabel" type="Label" parent="."]
-offset_left = -20.0
-offset_top = -31.0
-offset_right = 20.0
-offset_bottom = -8.0
-text = "0"
-horizontal_alignment = 1
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_7frlh")
 debug_color = Color(0.991119, 0, 0.269717, 0.42)
 
 [node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(1, 2)
+shape = SubResource("CircleShape2D_a6vjd")
+debug_color = Color(0.915181, 0.216336, 0.490467, 0.42)
 
 [node name="InvinsibleTimer" type="Timer" parent="."]
+one_shot = true
